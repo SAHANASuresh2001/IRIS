@@ -1,24 +1,15 @@
 import streamlit as st 
-from PIL import Image
-import numpy as np
-from flask import Flask, request, jsonify, render_template
 import pickle
-import json
-import pandas as pd
 
-app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 labels ={
   0: "setosa",
   1: "versicolor",
   2: "virginica"
 }
-
-@app.route('/')
 def welcome():
     return "Index Page"
 
-@app.route('/predict',methods=['POST'])
 def predict(sl,sw,pl,pw):
     prediction=model.predict([[sl,sw,pl,pw]])
     return labels[prediction[0]]
@@ -42,5 +33,5 @@ def main():
         st.text("Lets LEarn")
         st.text("Built with Streamlit")
 
-if __name__=='__main__':
-    main()
+main()
+

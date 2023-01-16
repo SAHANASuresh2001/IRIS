@@ -1,23 +1,11 @@
-FROM ubuntu
-
 FROM python
 
+WORKDIR /pythonapp
 
+COPY . /pythonapp/
 
-# We copy just the requirements.txt first to leverage Docker cache
-COPY ./requirements.txt /app/requirements.txt
-
-WORKDIR /app
+EXPOSE 8501 
 
 RUN pip install -r requirements.txt
 
-EXPOSE 8502
-
-COPY . /app
-
-#CMD streamlit run /app/server.py 
-CMD python /app/model.py 
-#&& python streamlit run /app/server.py
-
-
- 
+CMD streamlit run server.py
